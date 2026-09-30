@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nilo</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="app">
+
+        <header class="top">
+
+            <div class="brand">
+                <span class="tiny">YOUR Personal Space</span>
+                <h1>nilo<span>.</span></h1>
+            </div>
+
+            <div class="date">
+                <span id="day">MONDAY</span>
+                <b id="date">29 SEP</b>
+            </div>
+
+
+        </header>
+
+
+        <section class="hello">
+
+            <div>
+                <span class="tiny" id="greeting">GOOD AFTERNOON</span>
+                <h2>What's on your mind?</h2>
+            </div>
+
+            <div class="progress">
+                <span id="progress-number">0%</span>
+            </div>
+
+        </section>
+
+        <section class="layout">
+
+            <section class="tasks card">
+
+                <div class="heading">
+
+                    <div>
+                        <span class="tiny">TODAY</span>
+                        <h3>Things to do</h3>
+                    </div>
+                    
+
+                    <button class="add" id="add-task" aria-label="Add task">+</button>
+
+                </div>
+
+
+                <div class="task-list" id="task-list">
+
+                    <div class="task">
+
+
+                        <button class="check" aria-label="Complete task"></button>
+
+                        <div class="task-info">
+                            <strong>Start something useful</strong>
+                            <span>Personal</span>
+                        </div>
+
+                        <button class="remove" aria-label="Remove task">×</button>
+
+                    </div>
+
+                    <div class="task">
+
+
+                        <button class="check" aria-label="Complete task"></button>
+
+                        <div class="task-info">
+                            <strong>Take a proper break</strong>
+                            <span>Wellbeing</span>
+                        </div>
+
+                        <button class="remove" aria-label="Remove task">×</button>
+
+                    </div>
+
+                    <div class="task completed">
+
+                        <button class="check" aria-label="Complete task">✓</button>
+
+                        <div class="task-info">
+                            <strong>Set up Nilo</strong>
+                            <span>Project</span>
+                        </div>
+
+                        <button class="remove" aria-label="Remove task">×</button>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <aside>
+
+                <div class="focus card">
+
+                    <div class="focus-top">
+                        <span class="tiny">FOCUS</span>
+                        <span class="status" id="session-status">READY</span>
+                    </div>
+
+                    <div class="timer" id="timer">25:00</div>
+
+                    <p id="timer-text">One thing at a time.</p>
+
+                    <button class="start" id="session-button">
+                        START SESSION
+                    </button>
+
+                </div>
+
+
+                <div class="thought card">
+
+                    <span class="quote">“</span>
+
+                    <p>
+                        You don't need to have it all figured out.<br>
+                        Just start.
+                    </p>
+
+                </div>
+
+            </aside>
+
+
+
+        </section>
+
+
+
+        <footer>
+            <span>LOCAL, OFFLINE, FOREVER  :)</span>
+        </footer>
+
+    </main>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>  

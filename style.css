@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap');
+
+:root {
+    --bg: #11120f;
+    --card: #191a17;
+    --border: #30312d;
+    --text: #e0e1da;
+    --muted: #85877f;
+    --accent: #b5d484;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: "Space Grotesk", sans-serif;
+}
+
+
+button {
+    font: inherit;
+}
+
+
+.app {
+    width: min(1050px, calc(100% - 42px));
+    margin: 0 auto;
+    padding: 40px 0 22px;
+}
+
+
+.top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 34px;
+}
+
+
+.brand .tiny {
+    margin-left: 2px;
+}
+
+
+h1 {
+    margin: 5px 0 0;
+
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -3px;
+}
+
+
+h1 span {
+    color: var(--accent);
+}
+
+
+.tiny {
+    color: var(--muted);
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+
+.date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+
+.date span {
+    color: var(--muted);
+
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+}
+
+
+.date b {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+.hello {
+    min-height: 112px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 23px 25px;
+    margin-bottom: 15px;
+
+    border: 1px solid var(--border);
+    background: var(--card);
+}
+
+
+h2 {
+    margin: 8px 0 0;
+
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: -.7px;
+}
+
+
+.progress {
+    width: 61px;
+    height: 61px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid #51594b;
+    border-radius: 50%;
+}
+
+
+#progress-number {
+    color: var(--accent);
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+}
+
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(250px, .75fr);
+    gap: 15px;
+}
+
+
+.card {
+    border: 1px solid var(--border);
+    background: var(--card);
+}
+
+
