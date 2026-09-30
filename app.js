@@ -52,6 +52,26 @@ function updateProgress() {
 }
 
 
+
+function saveTasks() {
+
+    const tasks = []
+
+    document.querySelectorAll(".task").forEach(task => {
+
+        tasks.push({
+            name: task.querySelector("strong").textContent,
+            category: task.querySelector("span").textContent,
+            completed: task.classList.contains("completed")
+        })
+
+    })
+
+    localStorage.setItem("nilo-tasks", JSON.stringify(tasks))
+}
+
+
+
 function connectTask(task) {
 
     const check = task.querySelector(".check")
@@ -66,6 +86,7 @@ function connectTask(task) {
             task.classList.contains("completed") ? "✓" : ""
 
         updateProgress()
+        saveTasks()
     })
 
 
@@ -74,13 +95,90 @@ function connectTask(task) {
         task.remove()
 
         updateProgress()
+        saveTasks()
     })
 }
 
 
-document.querySelectorAll(".task").forEach(connectTask)
 
-updateProgress()
+function makeTask(name, category, completed = false) {
+
+    const task = document.createElement("div")
+    task.className = "task"
+
+
+    if (completed) {
+        task.classList.add("completed")
+    }
+
+
+    const check = document.createElement("button")
+    check.className = "check"
+    check.setAttribute("aria-label", "Complete task")
+    check.textContent = completed ? "✓" : ""
+
+
+    const info = document.createElement("div")
+    info.className = "task-info"
+
+
+    const title = document.createElement("strong")
+    title.textContent = name
+
+
+    const categoryText = document.createElement("span")
+    categoryText.textContent = category
+
+
+    const remove = document.createElement("button")
+    remove.className = "remove"
+    remove.textContent = "×"
+    remove.setAttribute("aria-label", "Remove task")
+
+
+    info.append(title, categoryText)
+
+    task.append(check, info, remove)
+
+
+    document.querySelector("#task-list").appendChild(task)
+
+    connectTask(task)
+}
+
+
+
+function loadTasks() {
+
+    const saved = localStorage.getItem("nilo-tasks")
+
+    if (!saved) {
+        document.querySelectorAll(".task").forEach(connectTask)
+        updateProgress()
+        saveTasks()
+        return
+    }
+
+
+    const tasks = JSON.parse(saved)
+
+    document.querySelector("#task-list").innerHTML = ""
+
+
+    tasks.forEach(task => {
+        makeTask(
+            task.name,
+            task.category,
+            task.completed
+        )
+    })
+
+
+    updateProgress()
+}
+
+
+loadTasks()
 
 
 
@@ -102,49 +200,17 @@ document.querySelector("#add-task").addEventListener("click", () => {
     }
 
 
-    const task = document.createElement("div")
-    task.className = "task"
+    makeTask(name.trim(), category.trim())
 
-
-    const check = document.createElement("button")
-    check.className = "check"
-    check.setAttribute("aria-label", "Complete task")
-
-
-    const info = document.createElement("div")
-    info.className = "task-info"
-
-
-    const title = document.createElement("strong")
-    title.textContent = name.trim()
-
-
-    const categoryText = document.createElement("span")
-    categoryText.textContent = category.trim()
-
-
-    const remove = document.createElement("button")
-    remove.className = "remove"
-    remove.textContent = "×"
-    remove.setAttribute("aria-label", "Remove task")
-
-
-    info.append(title, categoryText)
-
-    task.append(check, info, remove)
-
-
-    document.querySelector("#task-list").appendChild(task)
-
-    connectTask(task)
     updateProgress()
+    saveTasks()
 })
+
 
 
 let seconds = 25 * 60
 let interval = null
 let running = false
-
 
 
 function showTime() {
@@ -164,7 +230,6 @@ function startSession() {
     const button = document.querySelector("#session-button")
 
     button.textContent = "END SESSION"
-
     button.classList.add("running")
 
     document.querySelector("#session-status").textContent = "FOCUSING"
@@ -175,7 +240,6 @@ function startSession() {
 
         seconds--
         showTime()
-
 
 
         if (seconds <= 0) {
@@ -207,7 +271,6 @@ function endSession() {
 
     showTime()
 
-
     document.querySelector("#session-button").textContent = "START SESSION"
     document.querySelector("#session-button").classList.remove("running")
 
@@ -221,7 +284,6 @@ document.querySelector("#session-button").addEventListener("click", () => {
     if (running) {
         endSession()
     } else {
-        
         startSession()
     }
 
