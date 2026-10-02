@@ -16,6 +16,16 @@ const months = [
     "SEP", "OCT", "NOV", "DEC"
 ]
 
+const categories = [
+    "Personal",
+    "Study",
+    "Work",
+    "Wellbeing",
+    "Errand",
+    "Project",
+    "Other"
+]
+
 
 document.querySelector("#day").textContent = days[now.getDay()]
 
@@ -106,6 +116,8 @@ function makeTask(name, category, completed = false) {
     const task = document.createElement("div")
     task.className = "task"
 
+    task.dataset.category = category
+
 
     if (completed) {
         task.classList.add("completed")
@@ -153,9 +165,19 @@ function loadTasks() {
     const saved = localStorage.getItem("nilo-tasks")
 
     if (!saved) {
-        document.querySelectorAll(".task").forEach(connectTask)
+
+        document.querySelectorAll(".task").forEach(task => {
+
+            task.dataset.category =
+                task.querySelector("span").textContent
+
+            connectTask(task)
+
+        })
+
         updateProgress()
         saveTasks()
+
         return
     }
 
@@ -166,11 +188,17 @@ function loadTasks() {
 
 
     tasks.forEach(task => {
+
+        const category = categories.includes(task.category)
+            ? task.category
+            : "Other"
+
         makeTask(
             task.name,
-            task.category,
+            category,
             task.completed
         )
+
     })
 
 
@@ -191,19 +219,71 @@ document.querySelector("#add-task").addEventListener("click", () => {
     }
 
 
-    const category = prompt(
-        "Choose a category:\n\nPersonal\nStudy\nWork\nWellbeing\nErrand\nProject\nOther"
+    const choice = prompt(
+        "Choose a category:\n\n" +
+        "1. Personal\n" +
+        "2. Study\n" +
+        "3. Work\n" +
+        "4. Wellbeing\n" +
+        "5. Errand\n" +
+        "6. Project\n" +
+        "7. Other"
     )
 
-    if (!category || !category.trim()) {
+    if (!choice) {
         return
     }
 
 
-    makeTask(name.trim(), category.trim())
+    const number = Number(choice)
+    const category = categories[number - 1]
+
+
+    if (!category) {
+        return
+    }
+
+
+    makeTask(name.trim(), category)
 
     updateProgress()
     saveTasks()
+})
+
+
+
+let currentCategory = "All"
+
+
+document.querySelectorAll(".filter").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        currentCategory = button.dataset.category
+
+
+        document.querySelectorAll(".filter").forEach(filter => {
+            filter.classList.remove("active")
+        })
+
+        button.classList.add("active")
+
+
+        document.querySelectorAll(".task").forEach(task => {
+
+            if (
+                currentCategory === "All" ||
+                task.dataset.category === currentCategory
+            ) {
+                task.style.display = ""
+            } else {
+                task.style.display = "none"
+            }
+
+        })
+
+    })
+
 })
 
 

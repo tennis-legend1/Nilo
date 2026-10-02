@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <main class="app">
 
         <header class="top">
@@ -24,7 +25,6 @@
                 <span id="day">MONDAY</span>
                 <b id="date">29 SEP</b>
             </div>
-
 
         </header>
 
@@ -42,6 +42,7 @@
 
         </section>
 
+
         <section class="layout">
 
             <section class="tasks card">
@@ -52,9 +53,45 @@
                         <span class="tiny">TODAY</span>
                         <h3>Things to do</h3>
                     </div>
-                    
 
                     <button class="add" id="add-task" aria-label="Add task">+</button>
+
+                </div>
+
+
+                <div class="filters" id="filters">
+
+                    <button class="filter active" data-category="All">
+                        ALL
+                    </button>
+
+                    <button class="filter" data-category="Personal">
+                        PERSONAL
+                    </button>
+
+                    <button class="filter" data-category="Study">
+                        STUDY
+                    </button>
+
+                    <button class="filter" data-category="Work">
+                        WORK
+                    </button>
+
+                    <button class="filter" data-category="Wellbeing">
+                        WELLBEING
+                    </button>
+
+                    <button class="filter" data-category="Errand">
+                        ERRAND
+                    </button>
+
+                    <button class="filter" data-category="Project">
+                        PROJECT
+                    </button>
+
+                    <button class="filter" data-category="Other">
+                        OTHER
+                    </button>
 
                 </div>
 
@@ -62,7 +99,6 @@
                 <div class="task-list" id="task-list">
 
                     <div class="task">
-
 
                         <button class="check" aria-label="Complete task"></button>
 
@@ -75,8 +111,8 @@
 
                     </div>
 
-                    <div class="task">
 
+                    <div class="task">
 
                         <button class="check" aria-label="Complete task"></button>
 
@@ -89,6 +125,7 @@
 
                     </div>
 
+
                     <div class="task completed">
 
                         <button class="check" aria-label="Complete task">✓</button>
@@ -99,7 +136,6 @@
                         </div>
 
                         <button class="remove" aria-label="Remove task">×</button>
-
 
                     </div>
 
@@ -133,7 +169,8 @@
                     <span class="quote">“</span>
 
                     <p>
-                        You don't need to have it all figured out.<br>
+                        You don't need to have<br>
+                        everything figured out.<br>
                         Just start.
                     </p>
 
@@ -141,14 +178,11 @@
 
             </aside>
 
-
-
         </section>
 
 
-
         <footer>
-            <span>LOCAL, OFFLINE, FOREVER  :)</span>
+            <span>LOCAL, PRIVATE, FOREVER</span>
         </footer>
 
     </main>
@@ -157,4 +191,4 @@
     <script src="app.js"></script>
 
 </body>
-</html>  
+</html>

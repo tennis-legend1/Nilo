@@ -170,6 +170,42 @@ h2 {
     margin-bottom: 21px;
 }
 
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    margin-bottom: 15px;
+}
+
+
+.filter {
+    padding: 5px 8px;
+
+    border: 1px solid #353732;
+    background: transparent;
+
+    color: #686b63;
+
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+    letter-spacing: .5px;
+
+    cursor: pointer;
+}
+
+
+.filter:hover {
+    color: var(--text);
+    border-color: #555950;
+}
+
+
+.filter.active {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
 
 h3 {
     margin: 5px 0 0;
