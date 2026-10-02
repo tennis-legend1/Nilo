@@ -262,13 +262,13 @@ document.querySelector("#add-task").addEventListener("click", () => {
 
     const choice = prompt(
         "Choose a category:\n\n" +
-        "Personal\n" +
-        "Study\n" +
-        "Work\n" +
-        "Wellbeing\n" +
-        "Errand\n" +
-        "Project\n" +
-        "Other"
+        "1. Personal\n" +
+        "2. Study\n" +
+        "3. Work\n" +
+        "4. Wellbeing\n" +
+        "5. Errand\n" +
+        "6. Project\n" +
+        "7. Other"
     )
 
     if (!choice || !choice.trim()) {
@@ -278,15 +278,33 @@ document.querySelector("#add-task").addEventListener("click", () => {
 
     const typedCategory = choice.trim().toLowerCase()
 
-    const category = categories.find(
-        item => item.toLowerCase() === typedCategory
-    )
+    let category = null
+
+    const numberMatch = typedCategory.match(/^(\d+)/)
+
+    if (numberMatch) {
+
+        const number = Number(numberMatch[1])
+
+        if (number >= 1 && number <= categories.length) {
+            category = categories[number - 1]
+        }
+
+    } else {
+
+        category = categories.find(
+            item => item.toLowerCase() === typedCategory
+        )
+
+    }
 
 
     if (!category) {
+
         alert(
-            "Please choose one of these categories:\n\n" +
-            categories.join(", ")
+            "Category not recognised.\n\n" +
+            "Choose Personal, Study, Work, Wellbeing, " +
+            "Errand, Project or Other."
         )
 
         return
