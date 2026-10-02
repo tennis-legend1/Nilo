@@ -152,7 +152,6 @@ function makeTask(name, category, completed = false) {
 
     task.append(check, info, remove)
 
-
     document.querySelector("#task-list").appendChild(task)
 
     connectTask(task)
@@ -168,8 +167,10 @@ function loadTasks() {
 
         document.querySelectorAll(".task").forEach(task => {
 
-            task.dataset.category =
+            const category =
                 task.querySelector("span").textContent
+
+            task.dataset.category = category
 
             connectTask(task)
 
@@ -210,49 +211,24 @@ loadTasks()
 
 
 
-document.querySelector("#add-task").addEventListener("click", () => {
-
-    const name = prompt("What needs doing?")
-
-    if (!name || !name.trim()) {
-        return
-    }
-
-
-    const choice = prompt(
-        "Choose a category:\n\n" +
-        "1. Personal\n" +
-        "2. Study\n" +
-        "3. Work\n" +
-        "4. Wellbeing\n" +
-        "5. Errand\n" +
-        "6. Project\n" +
-        "7. Other"
-    )
-
-    if (!choice) {
-        return
-    }
-
-
-    const number = Number(choice)
-    const category = categories[number - 1]
-
-
-    if (!category) {
-        return
-    }
-
-
-    makeTask(name.trim(), category)
-
-    updateProgress()
-    saveTasks()
-})
-
-
-
 let currentCategory = "All"
+
+
+function filterTasks() {
+
+    document.querySelectorAll(".task").forEach(task => {
+
+        if (
+            currentCategory === "All" ||
+            task.dataset.category === currentCategory
+        ) {
+            task.style.display = ""
+        } else {
+            task.style.display = "none"
+        }
+
+    })
+}
 
 
 document.querySelectorAll(".filter").forEach(button => {
@@ -268,22 +244,61 @@ document.querySelectorAll(".filter").forEach(button => {
 
         button.classList.add("active")
 
-
-        document.querySelectorAll(".task").forEach(task => {
-
-            if (
-                currentCategory === "All" ||
-                task.dataset.category === currentCategory
-            ) {
-                task.style.display = ""
-            } else {
-                task.style.display = "none"
-            }
-
-        })
-
+        filterTasks()
     })
 
+})
+
+
+
+document.querySelector("#add-task").addEventListener("click", () => {
+
+    const name = prompt("What needs doing?")
+
+    if (!name || !name.trim()) {
+        return
+    }
+
+
+    const choice = prompt(
+        "Choose a category:\n\n" +
+        "Personal\n" +
+        "Study\n" +
+        "Work\n" +
+        "Wellbeing\n" +
+        "Errand\n" +
+        "Project\n" +
+        "Other"
+    )
+
+    if (!choice || !choice.trim()) {
+        return
+    }
+
+
+    const typedCategory = choice.trim().toLowerCase()
+
+    const category = categories.find(
+        item => item.toLowerCase() === typedCategory
+    )
+
+
+    if (!category) {
+        alert(
+            "Please choose one of these categories:\n\n" +
+            categories.join(", ")
+        )
+
+        return
+    }
+
+
+    makeTask(name.trim(), category)
+
+    updateProgress()
+    saveTasks()
+
+    filterTasks()
 })
 
 
