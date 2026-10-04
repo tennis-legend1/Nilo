@@ -400,4 +400,65 @@ document.querySelector("#session-button").addEventListener("click", () => {
         startSession()
     }
 
+    
+})
+
+
+const sounds = {
+    rain: new Audio("sounds/rain.mp3"),
+    cafe: new Audio("sounds/cafe.mp3"),
+    forest: new Audio("sounds/forest.mp3")
+}
+
+
+Object.values(sounds).forEach(sound => {
+    sound.loop = true
+})
+
+
+let currentSound = null
+
+
+function playSound(name) {
+
+    Object.values(sounds).forEach(sound => {
+        sound.pause()
+        sound.currentTime = 0
+    })
+
+
+    if (name === "off") {
+
+        currentSound = null
+
+        document.querySelector("#sound-status").textContent = "OFF"
+
+        return
+    }
+
+
+    currentSound = sounds[name]
+
+    currentSound.play()
+
+    document.querySelector("#sound-status").textContent =
+        name.toUpperCase()
+}
+
+
+document.querySelectorAll(".sound").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const sound = button.dataset.sound
+
+        document.querySelectorAll(".sound").forEach(option => {
+            option.classList.remove("active")
+        })
+
+        button.classList.add("active")
+
+        playSound(sound)
+    })
+
 })

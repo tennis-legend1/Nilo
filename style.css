@@ -438,6 +438,47 @@ aside {
     line-height: 1.65;
 }
 
+.ambience {
+    min-height: 123px;
+    padding: 20px 22px;
+}
+
+
+.sound-options {
+    display: flex;
+    gap: 6px;
+
+    margin-top: 23px;
+}
+
+
+.sound {
+    padding: 7px 9px;
+
+    border: 1px solid #353732;
+    background: transparent;
+
+    color: #686b63;
+
+    font-family: "DM Mono", monospace;
+    font-size: 8px;
+    letter-spacing: .5px;
+
+    cursor: pointer;
+}
+
+
+.sound:hover {
+    color: var(--text);
+    border-color: #555950;
+}
+
+
+.sound.active {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
 
 footer {
     display: flex;
