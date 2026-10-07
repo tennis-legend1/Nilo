@@ -325,6 +325,8 @@ let seconds = 25 * 60
 let interval = null
 let running = false
 
+const finishSound = new Audio("sounds/finish.mp3")
+
 
 function showTime() {
 
@@ -338,6 +340,11 @@ function showTime() {
 
 function startSession() {
 
+    if (seconds <= 0) {
+        seconds = 25 * 60
+        showTime()
+    }
+
     running = true
 
     const button = document.querySelector("#session-button")
@@ -346,7 +353,6 @@ function startSession() {
     button.classList.add("running")
 
     document.querySelector("#session-status").textContent = "FOCUSING"
-    document.querySelector("#timer-text").textContent = "Stay with it."
 
 
     interval = setInterval(() => {
@@ -360,15 +366,17 @@ function startSession() {
             clearInterval(interval)
 
             running = false
-            seconds = 25 * 60
+            seconds = 0
 
             button.textContent = "START SESSION"
             button.classList.remove("running")
 
             document.querySelector("#session-status").textContent = "FINISHED"
-            document.querySelector("#timer-text").textContent = "Nice work."
 
             showTime()
+
+            finishSound.currentTime = 0
+            finishSound.play().catch(() => {})
         }
 
     }, 1000)
@@ -388,7 +396,6 @@ function endSession() {
     document.querySelector("#session-button").classList.remove("running")
 
     document.querySelector("#session-status").textContent = "READY"
-    document.querySelector("#timer-text").textContent = "One thing at a time."
 }
 
 
@@ -400,8 +407,43 @@ document.querySelector("#session-button").addEventListener("click", () => {
         startSession()
     }
 
-    
 })
+
+
+
+let goal = localStorage.getItem("nilo-goal") || ""
+
+const goalText = document.querySelector("#goal-text")
+
+
+function showGoal() {
+
+    goalText.textContent =
+        goal || "Set a goal"
+}
+
+
+showGoal()
+
+
+goalText.addEventListener("click", () => {
+
+    const newGoal = prompt(
+        "What are you aiming for?",
+        goal
+    )
+
+    if (newGoal === null) {
+        return
+    }
+
+    goal = newGoal.trim()
+
+    localStorage.setItem("nilo-goal", goal)
+
+    showGoal()
+})
+
 
 
 const sounds = {
