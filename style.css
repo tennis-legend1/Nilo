@@ -410,31 +410,47 @@ aside {
 }
 
 
-.start {
-    width: 100%;
-
+.session-buttons {
+    display: grid;
+    grid-template-columns: 1fr 55px;
+    gap: 6px;
     margin-top: auto;
-    padding: 12px;
+}
 
+.start,
+.end {
+    padding: 12px;
     border: 1px solid var(--accent);
     background: var(--accent);
-
     color: #171914;
-
     font-family: "DM Mono", monospace;
     font-size: 9px;
     font-weight: 500;
-
     cursor: pointer;
 }
 
-
-.start:hover {
+.start:hover,
+.end:hover {
     opacity: .88;
 }
 
-
 .start.running {
+    background: transparent;
+    color: var(--accent);
+}
+
+.end {
+    border-color: #3b3d38;
+    background: transparent;
+    color: #686b63;
+}
+
+.end:hover {
+    color: #ba8275;
+    border-color: #555950;
+}
+
+.pause {
     background: transparent;
     color: var(--accent);
 }

@@ -321,9 +321,10 @@ document.querySelector("#add-task").addEventListener("click", () => {
 
 
 
-let seconds = 25 * 60
+let seconds = 5
 let interval = null
 let running = false
+let paused = false
 
 const finishSound = new Audio("sounds/finish.mp3")
 
@@ -342,18 +343,19 @@ function startSession() {
 
     if (seconds <= 0) {
         seconds = 25 * 60
-        showTime()
     }
 
     running = true
+    paused = false
 
     const button = document.querySelector("#session-button")
 
-    button.textContent = "END SESSION"
+    button.textContent = "PAUSE"
     button.classList.add("running")
 
     document.querySelector("#session-status").textContent = "FOCUSING"
 
+    clearInterval(interval)
 
     interval = setInterval(() => {
 
@@ -366,6 +368,7 @@ function startSession() {
             clearInterval(interval)
 
             running = false
+            paused = false
             seconds = 0
 
             button.textContent = "START SESSION"
@@ -380,6 +383,23 @@ function startSession() {
         }
 
     }, 1000)
+
+    showTime()
+}
+
+
+function pauseSession() {
+
+    clearInterval(interval)
+
+    paused = true
+
+    document.querySelector("#session-status").textContent = "PAUSED"
+
+    const button = document.querySelector("#session-button")
+
+    button.textContent = "RESUME"
+    button.classList.remove("running")
 }
 
 
@@ -388,6 +408,7 @@ function endSession() {
     clearInterval(interval)
 
     running = false
+    paused = false
     seconds = 25 * 60
 
     showTime()
@@ -396,15 +417,33 @@ function endSession() {
     document.querySelector("#session-button").classList.remove("running")
 
     document.querySelector("#session-status").textContent = "READY"
+
+    goal = ""
+    localStorage.removeItem("nilo-goal")
+    showGoal()
 }
 
 
 document.querySelector("#session-button").addEventListener("click", () => {
 
-    if (running) {
-        endSession()
-    } else {
+    if (!running) {
         startSession()
+        return
+    }
+
+    if (paused) {
+        startSession()
+        return
+    }
+
+    pauseSession()
+})
+
+
+document.querySelector("#end-button").addEventListener("click", () => {
+
+    if (running || paused) {
+        endSession()
     }
 
 })
