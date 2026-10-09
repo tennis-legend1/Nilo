@@ -355,6 +355,9 @@ aside {
     justify-content: space-between;
 }
 
+.focus-goal {
+    margin-bottom: 16px;
+}
 
 .status {
 
@@ -411,10 +414,16 @@ aside {
 
 
 .session-buttons {
-    display: grid;
-    grid-template-columns: 1fr 55px;
-    gap: 6px;
-    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+
+.session-buttons button {
+    flex: 1;
+    min-width: 0;
 }
 
 .end[hidden] {

@@ -423,31 +423,43 @@ function pauseSession() {
     button.classList.remove("running")
 }
 
+function endSession() {
+    clearInterval(interval);
+
+    running = false;
+    paused = false;
+    seconds = 25 * 60;
+
+    showTime();
+
+    const button = document.querySelector("#session-button");
+    const endButton = document.querySelector("#end-button");
+
+    button.textContent = "START SESSION";
+    button.classList.remove("running");
+    endButton.hidden = true;
+
+    document.querySelector("#session-status").textContent = "READY";
+
+    
+}
+
 
 document.querySelector("#session-button").addEventListener("click", () => {
-
-    if (!running) {
-        startSession()
-        return
+    if (!running || paused) {
+        startSession();
+    } else {
+        pauseSession();
     }
+});
 
-    if (paused) {
-        startSession()
-        return
-    }
-
-    pauseSession()
-})
 
 
 document.querySelector("#end-button").addEventListener("click", () => {
-
     if (running || paused) {
-        endSession()
+        endSession();
     }
-
-})
-
+});
 
 
 let goal = localStorage.getItem("nilo-goal") || ""
