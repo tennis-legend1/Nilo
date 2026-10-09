@@ -321,7 +321,7 @@ document.querySelector("#add-task").addEventListener("click", () => {
 
 
 
-let seconds = 5
+let seconds = 25 * 60
 let interval = null
 let running = false
 let paused = false
@@ -349,9 +349,11 @@ function startSession() {
     paused = false
 
     const button = document.querySelector("#session-button")
+    const endButton = document.querySelector("#end-button")
 
     button.textContent = "PAUSE"
     button.classList.add("running")
+    endButton.hidden = false
 
     document.querySelector("#session-status").textContent = "FOCUSING"
 
@@ -361,7 +363,6 @@ function startSession() {
 
         seconds--
         showTime()
-
 
         if (seconds <= 0) {
 
@@ -373,8 +374,13 @@ function startSession() {
 
             button.textContent = "START SESSION"
             button.classList.remove("running")
+            endButton.hidden = true
 
             document.querySelector("#session-status").textContent = "FINISHED"
+
+            goal = ""
+            localStorage.removeItem("nilo-goal")
+            showGoal()
 
             showTime()
 
@@ -403,24 +409,18 @@ function pauseSession() {
 }
 
 
-function endSession() {
+function pauseSession() {
 
     clearInterval(interval)
 
-    running = false
-    paused = false
-    seconds = 25 * 60
+    paused = true
 
-    showTime()
+    document.querySelector("#session-status").textContent = "PAUSED"
 
-    document.querySelector("#session-button").textContent = "START SESSION"
-    document.querySelector("#session-button").classList.remove("running")
+    const button = document.querySelector("#session-button")
 
-    document.querySelector("#session-status").textContent = "READY"
-
-    goal = ""
-    localStorage.removeItem("nilo-goal")
-    showGoal()
+    button.textContent = "RESUME"
+    button.classList.remove("running")
 }
 
 

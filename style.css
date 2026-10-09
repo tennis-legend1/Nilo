@@ -417,6 +417,10 @@ aside {
     margin-top: auto;
 }
 
+.end[hidden] {
+    display: none;
+}
+
 .start,
 .end {
     padding: 12px;
